@@ -8,6 +8,11 @@ public class ActivityFactory : IAbstractActivityFactory
 {
     private IContext _context;
     
+    public ActivityFactory()
+    {
+        _context = MainContainer.Context();
+    }
+    
     public ActivityFactory(IContext context)
     {
         _context = context;

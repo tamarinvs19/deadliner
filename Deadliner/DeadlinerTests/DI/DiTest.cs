@@ -28,6 +28,30 @@ public class DiTest
         Assert.That(firstId, Is.Not.EqualTo(thirdId));
         Assert.That(secondId, Is.Not.EqualTo(thirdId));
     }
+
+    private int IdGeneratorHelpFunction()
+    {
+        var idGenerator = MainContainer.IdGenerator();
+        return idGenerator.NextId();
+    }
+    
+    [Test]
+    public void TestIdGeneratorFirst()
+    {
+        MainContainer.BuildContainer();
+        var firstId = IdGeneratorHelpFunction();
+        var secondId = IdGeneratorHelpFunction();
+        Assert.That(firstId, Is.Not.EqualTo(secondId));
+    }
+    
+    [Test]
+    public void TestIdGeneratorSecond()
+    {
+        MainContainer.BuildContainer();
+        var idGenerator = MainContainer.IdGenerator();
+        var firstId = idGenerator.NextId();
+        Assert.That(firstId >= 2);
+    }
     
     [Test]
     public void TestContext()

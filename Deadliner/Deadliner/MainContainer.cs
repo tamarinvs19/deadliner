@@ -16,10 +16,7 @@ public class MainContainer
         builder.RegisterType<IdGenerator>().As<IIdGenerator>().SingleInstance();
         builder.RegisterType<TimeProvider>().As<ITimeProvider>().InstancePerLifetimeScope();
         builder.RegisterType<BaseContext>().As<IContext>();
-        
-        // builder.RegisterType<ActivityFactory>()
-        //     .As<IAbstractActivityFactory>()
-        //     .WithParameter("context", Context());
+        builder.RegisterType<ActivityFactory>().As<IAbstractActivityFactory>();
         
         Container = builder.Build();
     }
@@ -38,12 +35,12 @@ public class MainContainer
         return idGenerator;
     }
     
-    // public static IAbstractActivityFactory AbstractActivityFactory()
-    // {
-    //     using var scope = Container.BeginLifetimeScope();
-    //     var activityFactory = scope.Resolve<IAbstractActivityFactory>();
-    //     return activityFactory;
-    // }
+    public static IAbstractActivityFactory AbstractActivityFactory()
+    {
+        using var scope = Container.BeginLifetimeScope();
+        var activityFactory = scope.Resolve<IAbstractActivityFactory>();
+        return activityFactory;
+    }
     
     public static IContext Context()
     {
