@@ -20,11 +20,12 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 7.0.x
-    - name: Change directory
-      run: cd Deadliner
-    - name: Restore dependencies
-      run: dotnet restore
+#     - name: Restore dependencies
+#       working-directory: ./Deadliner
+#       run: dotnet restore
     - name: Build
+      working-directory: ./Deadliner
       run: dotnet build --no-restore
     - name: Test
+      working-directory: ./Deadliner
       run: dotnet test --no-build --verbosity normal
