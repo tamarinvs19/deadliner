@@ -13,12 +13,12 @@ public class ActivityFactory : IAbstractActivityFactory
         _context = context;
     }
 
-    private DateTime currentDateTime => _context.TimeProvider.Now();
+    private DateTime CurrentDateTime => _context.TimeProvider.Now();
 
     public ILocalEvent MakeLocalEvent(string title, string description, DateTime datetime, IGroup group)
     {
         ILocalActionState state;
-        if (datetime < currentDateTime)
+        if (datetime < CurrentDateTime)
         {
             state = new OverdueState();
         }
@@ -40,11 +40,11 @@ public class ActivityFactory : IAbstractActivityFactory
         }
 
         ILocalActionState state;
-        if (currentDateTime < creationTime)
+        if (CurrentDateTime < creationTime)
         {
             state = new FutureState();
         }
-        else if (currentDateTime <= deadline)
+        else if (CurrentDateTime <= deadline)
         {
             state = new ActualState();
         }

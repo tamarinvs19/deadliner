@@ -12,11 +12,6 @@ public class MemoryStorage<T> : IStorage<T> where T : IObject
         _storage = new Dictionary<int, T>();
     }
 
-    private static string TypeName()
-    {
-        return typeof(T).ToString();
-    }
-    
     public void Dispose() { }
 
     public IEnumerable<T> Items()
