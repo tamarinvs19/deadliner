@@ -1,10 +1,11 @@
+using Deadliner;
 using Deadliner.Controller;
 using Deadliner.Models;
 using Deadliner.Models.LocalActionStates;
 using Deadliner.Utils;
 using NUnit.Framework;
 
-namespace Deadliner.Tests.Factories;
+namespace DeadlinerTests.Factories;
 
 [TestFixture]
 public class ActivityFactoryTest

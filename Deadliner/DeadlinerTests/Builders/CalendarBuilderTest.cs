@@ -1,9 +1,10 @@
+using Deadliner;
 using Deadliner.Controller;
 using Deadliner.Models;
 using Deadliner.Models.LocalActionStates;
 using NUnit.Framework;
 
-namespace Deadliner.Tests.Builders;
+namespace DeadlinerTests.Builders;
 
 [TestFixture]
 public class CalendarBuilderTest

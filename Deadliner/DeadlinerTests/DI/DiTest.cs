@@ -1,7 +1,8 @@
+using Deadliner;
 using Deadliner.Controller;
 using NUnit.Framework;
 
-namespace Deadliner.Tests.DI;
+namespace DeadlinerTests.DI;
 
 [TestFixture]
 public class DiTest
@@ -12,7 +13,7 @@ public class DiTest
         MainContainer.BuildContainer();
         var timeProvider = MainContainer.TimeProvider();
         var today = DateTime.Today;
-        Assert.That(today == timeProvider.Now().Date);
+        Assert.That(today, Is.EqualTo(timeProvider.Now().Date));
     }
     
     [Test]
@@ -23,9 +24,9 @@ public class DiTest
         var firstId = idGenerator.NextId();
         var secondId = idGenerator.NextId();
         var thirdId = idGenerator.NextId();
-        Assert.That(firstId != secondId);
-        Assert.That(firstId != thirdId);
-        Assert.That(secondId != thirdId);
+        Assert.That(firstId, Is.Not.EqualTo(secondId));
+        Assert.That(firstId, Is.Not.EqualTo(thirdId));
+        Assert.That(secondId, Is.Not.EqualTo(thirdId));
     }
     
     [Test]
