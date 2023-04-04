@@ -1,6 +1,7 @@
+using Deadliner.Api.Utils;
 using Deadliner.Utils;
 
-namespace Deadliner.Models;
+namespace Deadliner.Api.Models.LocalActionStates;
 
 public interface ILocalActionState
 {

@@ -17,7 +17,7 @@
     </ItemGroup>
     
     <ItemGroup>
-        <ProjectReference Include="..\Deadliner\Deadliner.csproj"/>
+        <ProjectReference Include="..\Deadliner\Deadliner.csproj" />
     </ItemGroup>
 
 </Project>

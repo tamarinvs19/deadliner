@@ -1,6 +1,6 @@
-using Deadliner.Models;
+using Deadliner.Api.Models;
 
-namespace Deadliner;
+namespace Deadliner.Api;
 
 public interface IAbstractCalendarBuilder  // Строитель
 {

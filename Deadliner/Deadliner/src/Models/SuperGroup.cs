@@ -1,3 +1,4 @@
+using Deadliner.Api.Models;
 using Deadliner.Utils;
 
 namespace Deadliner.Models;

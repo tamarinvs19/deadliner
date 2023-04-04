@@ -1,4 +1,5 @@
 using Deadliner;
+using Deadliner.Api.Controller;
 using Deadliner.Controller;
 using NUnit.Framework;
 

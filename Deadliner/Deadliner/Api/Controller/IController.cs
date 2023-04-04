@@ -1,6 +1,7 @@
+using Deadliner.Api.Models;
 using Deadliner.Models;
 
-namespace Deadliner.Controller;
+namespace Deadliner.Api.Controller;
 
 public interface IController<T> where T: IObject
 {

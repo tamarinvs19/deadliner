@@ -1,4 +1,7 @@
-namespace Deadliner.Models;
+using Deadliner.Api.Models.LocalActionStates;
+using Deadliner.Models;
+
+namespace Deadliner.Api.Models.Relationships;
 
 public interface IUserToLocalAction : IObject
 {

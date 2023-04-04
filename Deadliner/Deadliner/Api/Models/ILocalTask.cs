@@ -1,4 +1,4 @@
-namespace Deadliner.Models;
+namespace Deadliner.Api.Models;
 
 public interface ILocalTask : ILocalAction
 {

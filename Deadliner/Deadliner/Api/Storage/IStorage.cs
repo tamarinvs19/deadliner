@@ -1,6 +1,7 @@
+using Deadliner.Api.Models;
 using Deadliner.Models;
 
-namespace Deadliner.Storage;
+namespace Deadliner.Api.Storage;
 
 public interface IStorage<T> : IDisposable where T : IObject
 {

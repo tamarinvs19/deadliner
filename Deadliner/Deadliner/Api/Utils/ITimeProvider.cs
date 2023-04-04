@@ -1,4 +1,4 @@
-namespace Deadliner.Utils;
+namespace Deadliner.Api.Utils;
 
 public interface ITimeProvider
 {

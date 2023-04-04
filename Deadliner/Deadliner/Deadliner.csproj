@@ -16,11 +16,19 @@
 
     <ItemGroup>
       <Folder Include="src\Logging" />
+      <Folder Include="src\Storage\EF" />
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="ADO.Net.Client" Version="1.4.4" />
+      <PackageReference Include="ADO.Net.Client.Core" Version="1.4.5" />
       <PackageReference Include="Autofac" Version="7.0.0" />
       <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0-preview.2.23128.3" />
+      <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="src\Storage\Ado\Helpers\Queries.xml" />
+      <EmbeddedResource Include="src\Storage\Ado\Helpers\Queries.xml" />
+    </ItemGroup>
 </Project>

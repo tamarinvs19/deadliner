@@ -1,3 +1,5 @@
+using Deadliner.Api.Utils;
+
 namespace Deadliner.Utils;
 
 public sealed class IdGenerator : IIdGenerator
