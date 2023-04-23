@@ -30,9 +30,4 @@ public class ActualState : ILocalActionState
     {
         return other is ActualState;
     }
-
-    public override int GetHashCode()
-    {
-        throw new NotImplementedException();
-    }
 }
