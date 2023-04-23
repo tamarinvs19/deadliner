@@ -5,6 +5,8 @@ namespace Deadliner.Api.Models;
 
 public interface ILocalAction : IObject  // Компоновщик (ITask + ILocalEvent)
 {
+    string Title { get; set; }
+    string Description { get; set; }
     IGroup Group { get; set; }
     ILocalActionState State { get; set; }  // Состояние
     ILocalAction? Parent { get; set; }

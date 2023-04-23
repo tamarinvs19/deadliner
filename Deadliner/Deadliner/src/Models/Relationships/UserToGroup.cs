@@ -13,6 +13,13 @@ public class UserToGroup : IUserToGroup
         Group = group;
     }
 
+    public UserToGroup(int id, IUser user, IGroup group)
+    {
+        Id = id;
+        User = user;
+        Group = group;
+    }
+
     public int Id { get; }
     public IUser User { get; }
     public IGroup Group { get; }

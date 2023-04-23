@@ -15,4 +15,24 @@ public class ActualState : ILocalActionState
     {
         throw new NotImplementedException();
     }
+
+    public override bool Equals(object? obj)
+    {
+        if (obj is ILocalActionState other)
+        {
+            return Equals(other);
+        }
+
+        return false;
+    }
+
+    protected bool Equals(ILocalActionState other)
+    {
+        return other is ActualState;
+    }
+
+    public override int GetHashCode()
+    {
+        throw new NotImplementedException();
+    }
 }

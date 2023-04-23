@@ -12,13 +12,14 @@ namespace Deadliner;
 public class MainContainer  // DI-container
 {
     private static IContainer Container { get; set; }
-    
+
     public static void BuildContainer()
     {
         var builder = new ContainerBuilder();
         builder.RegisterType<IdGenerator>().As<IIdGenerator>().SingleInstance();
         builder.RegisterType<TimeProvider>().As<ITimeProvider>().InstancePerLifetimeScope();
-        builder.RegisterType<BaseContext>().As<IContext>().SingleInstance();
+        // builder.RegisterType<BaseContext>().As<IContext>().SingleInstance();
+        builder.RegisterType<AdoContext>().As<IContext>().SingleInstance();
         builder.RegisterType<ActivityFactory>().As<IAbstractActivityFactory>();
         
         Container = builder.Build();

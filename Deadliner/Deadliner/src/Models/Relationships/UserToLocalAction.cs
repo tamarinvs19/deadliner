@@ -15,6 +15,14 @@ public class UserToLocalAction : IUserToLocalAction
         State = state;
     }
 
+    public UserToLocalAction(int id, IUser user, ILocalAction localAction, ILocalActionState state)
+    {
+        Id = id;
+        User = user;
+        LocalAction = localAction;
+        State = state;
+    }
+
     public int Id { get; }
     public IUser User { get; }
     public ILocalAction LocalAction { get; }

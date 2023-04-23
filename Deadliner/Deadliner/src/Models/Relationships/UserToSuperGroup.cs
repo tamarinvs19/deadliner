@@ -13,6 +13,13 @@ public class UserToSuperGroup : IUserToSuperGroup
         SuperGroup = superGroup;
     }
 
+    public UserToSuperGroup(int id, IUser user, ISuperGroup superGroup)
+    {
+        Id = id;
+        User = user;
+        SuperGroup = superGroup;
+    }
+
     public int Id { get; }
     public IUser User { get; }
     public ISuperGroup SuperGroup { get; }

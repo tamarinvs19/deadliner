@@ -6,18 +6,18 @@ using Deadliner.Utils;
 
 namespace Deadliner.Controller;
 
-public class BaseContext : IContext
+public class AdoContext : IContext
 {
-    public BaseContext()
+    public AdoContext()
     {
-        SuperGroups = new GenericController<ISuperGroup>();
-        Groups = new GenericController<IGroup>();
-        Users = new GenericController<IUser>();
-        LocalTasks = new GenericController<ILocalTask>();
-        LocalEvents = new GenericController<ILocalEvent>();
-        UserToSuperGroup = new GenericController<IUserToSuperGroup>();
-        UserToGroup = new GenericController<IUserToGroup>();
-        UserToLocalAction = new GenericController<IUserToLocalAction>();
+        SuperGroups = new AdoController<ISuperGroup>();
+        Groups = new AdoController<IGroup>();
+        Users = new AdoController<IUser>();
+        LocalTasks = new AdoController<ILocalTask>();
+        LocalEvents = new AdoController<ILocalEvent>();
+        UserToSuperGroup = new AdoController<IUserToSuperGroup>();
+        UserToGroup = new AdoController<IUserToGroup>();
+        UserToLocalAction = new AdoController<IUserToLocalAction>();
         TimeProvider = new TimeProvider();
     }
 

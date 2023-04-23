@@ -1,6 +1,7 @@
 using Deadliner;
 using Deadliner.Api.Controller;
 using Deadliner.Controller;
+using Deadliner.Models;
 using NUnit.Framework;
 
 namespace DeadlinerTests.DI;
@@ -60,5 +61,17 @@ public class DiTest
         MainContainer.BuildContainer();
         var context = MainContainer.Context();
         Assert.IsInstanceOf<IContext>(context);
+    }
+
+    [Test]
+    public void TestData()
+    {
+        MainContainer.BuildContainer();
+        var context = MainContainer.Context();
+        context.Users.Create(new User { Id = 100500, Username = "TestUser", Password = "jflaksdf" });
+        var user = context.Users.Get(100500);
+        Assert.That(user.Id, Is.EqualTo(100500));
+        context.Users.Delete(100500);
+        Assert.That(context.Users.Get(100500), Is.Null);
     }
 }

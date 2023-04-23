@@ -20,6 +20,26 @@ public class Calendar : ICalendar
         LocalEvents = actions.OfType<ILocalEvent>().ToList();
     }
 
+    public override bool Equals(object? obj)
+    {
+        if (obj is ICalendar other)
+        {
+            return Equals(other);
+        }
+
+        return false;
+    }
+
+    protected bool Equals(ICalendar other)
+    {
+        return Id == other.Id && LocalTasks.Equals(other.LocalTasks) && LocalEvents.Equals(other.LocalEvents);
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(Id, LocalTasks, LocalEvents);
+    }
+
     public int Id { get; }
     public List<ILocalTask> LocalTasks { get; set; }
     public List<ILocalEvent> LocalEvents { get; set; }

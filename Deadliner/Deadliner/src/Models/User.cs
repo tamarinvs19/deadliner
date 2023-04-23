@@ -15,7 +15,27 @@ public class User : IUser
         };
     }
 
+    public override bool Equals(object? obj)
+    {
+        if (obj is IUser user)
+        {
+            return Equals(user);
+        }
+        
+        return false;
+    }
+
+    protected bool Equals(IUser other)
+    {
+        return Id == other.Id && Username == other.Username && Password == other.Password;
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(Id, Username, Password);
+    }
+
     public int Id { get; init; }
-    public string Username { get; init; }
-    public string Password { get; init; }
+    public string Username { get; set; }
+    public string Password { get; set; }
 }

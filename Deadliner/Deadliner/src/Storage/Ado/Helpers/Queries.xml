@@ -3,11 +3,373 @@
     <Table Name="CUSTOM_COMMANDS">
     </Table>
     <Table Name="Users">
-        <Command Name="GetAllUsers">
+        <Command Name="GetAll">
             select Id, Username, Password from [dbo].[Users]
         </Command>
-        <Command Name="GetUserById">
-            select Id, Username, Password from [dbo].[Users] where ProductId=@productId
+        <Command Name="GetById">
+            select Id, Username, Password from [dbo].[Users] where Id=@id
+        </Command>
+        <Command Name="Create">
+            insert into [dbo].[Users] values (@id, @username, @password)
+        </Command>
+        <Command Name="Delete">
+            delete from [dbo].[Users] where Id=@id
+        </Command>
+        <Command Name="Update">
+            update [dbo].[Users]
+            set Username=@username, Password=@password
+            where Id=@id
+        </Command>
+    </Table>
+    <Table Name="SuperGroups">
+        <Command Name="GetAll">
+            select supergroups.Id, supergroups.Title, supergroups.Description, supergroups.AccessKey, supergroups.Owner, users.Username, users.Password
+            from [dbo].[SuperGroups] supergroups
+            inner join [dbo].[Users] users
+            on supergroups.Owner = users.Id
+        </Command>
+        <Command Name="GetById">
+            select supergroups.Id, supergroups.Title, supergroups.Description, supergroups.AccessKey, supergroups.Owner, users.Username, users.Password
+            from [dbo].[SuperGroups] supergroups
+            inner join [dbo].[Users] users
+            on supergroups.Owner = users.Id
+            where supergroups.Id=@id
+        </Command>
+        <Command Name="Create">
+            insert into [dbo].[SuperGroups] values (@id, @title, @description, @accesskey, @owner)
+        </Command>
+        <Command Name="Delete">
+            delete from [dbo].[SuperGroups] where Id=@id
+        </Command>
+        <Command Name="Update">
+            update [dbo].[SuperGroups]
+            set 
+            Title=@title, Description=@description, AccessKey=@accesskey, Owner=@owner
+            where Id=@id
+        </Command>
+    </Table>
+    <Table Name="Groups">
+        <Command Name="GetAll">
+            select
+                groups.Id as groupid, groups.Title as grouptitle, groups.Description as groupdescription, groups.AccessKey as groupkey,
+                supergroups.Id as sgid, supergroups.Title as sgtitle, supergroups.Description as sgdescription, supergroups.AccessKey as sgkey,
+                groupOwner.Id as goid, groupOwner.Username as gousername, groupOwner.Password as gopassword,
+                superGroupOwner.Id as sgoid, superGroupOwner.Username as sgousername, superGroupOwner.Password as sgopassword
+            from [dbo].[Groups] groups
+            inner join [dbo].[Users] groupOwner
+            on groups.Owner = groupOwner.Id
+            inner join [dbo].[SuperGroups] supergroups
+            on groups.SuperGroup = supergroups.Id
+            inner join [dbo].[Users] superGroupOwner
+            on supergroups.Owner = superGroupOwner.Id
+        </Command>
+        <Command Name="GetById">
+            select
+                groups.Id as groupid, groups.Title as grouptitle, groups.Description as groupdescription, groups.AccessKey as groupkey,
+                supergroups.Id as sgid, supergroups.Title as sgtitle, supergroups.Description as sgdescription, supergroups.AccessKey as sgkey,
+                groupOwner.Id as goid, groupOwner.Username as gousername, groupOwner.Password as gopassword,
+                superGroupOwner.Id as sgoid, superGroupOwner.Username as sgousername, superGroupOwner.Password as sgopassword
+            from [dbo].[Groups] groups
+            inner join [dbo].[Users] groupOwner
+            on groups.Owner = groupOwner.Id
+            inner join [dbo].[SuperGroups] supergroups
+            on groups.SuperGroup = supergroups.Id
+            inner join [dbo].[Users] superGroupOwner
+            on supergroups.Owner = superGroupOwner.Id
+            where groups.Id = @id
+        </Command>
+        <Command Name="Create">
+            insert into [dbo].[Groups] values (@id, @title, @description, @accesskey, @owner, @supergroup)
+        </Command>
+        <Command Name="Delete">
+            delete from [dbo].[Groups] where Id=@id
+        </Command>
+        <Command Name="Update">
+            update [dbo].[Groups]
+            set
+            Title=@title, Description=@description, AccessKey=@accesskey, Owner=@owner, SuperGroup=@supergroup
+            where Id=@id
+        </Command>
+    </Table>
+    <Table Name="LocalTasks">
+        <Command Name="GetAll">
+            select
+                actions.Id as actionid,
+                actions.Title as actiontitle,
+                actions.Description as actiondescription, 
+                actions.State as actionstate,
+                actions.Parent as actionparent,
+                tasks.CreationDateTime as taskcreationdt,
+                tasks.Deadline as taskdeadline,
+                dgroups.Id as dgroupid,
+                dgroups.Title as dgrouptitle,
+                dgroups.Description as dgroupdescription,
+                dgroups.AccessKey as dgroupkey,
+                users.Id as dgroupownerid,
+                users.Username as dgroupownerusername,
+                users.Password as dgroupownerpassword,
+                supergroups.Id as supergroupid,
+                supergroups.Title as supergrouptitle,
+                supergroups.Description as supergroupdescription,
+                supergroups.AccessKey as supergroupkey,
+                sgusers.Id as sgownerid,
+                sgusers.Username as sgownerusername,
+                sgusers.Password as sgownerpassword
+            from [dbo].[LocalActions] actions
+            inner join [dbo].[Groups] dgroups
+            on dgroups.Id = actions.DGroup
+            inner join [dbo].[Users] users
+            on dgroups.Owner = users.Id
+            inner join [dbo].[LocalTasks] tasks
+            on tasks.Id = actions.Id
+            inner join [dbo].[SuperGroups] supergroups
+            on dgroups.SuperGroup = supergroups.Id
+            inner join [dbo].[Users] sgusers
+            on supergroups.Owner = sgusers.Id
+        </Command>
+        <Command Name="GetById">
+            select
+                actions.Id as actionid,
+                actions.Title as actiontitle,
+                actions.Description as actiondescription, 
+                actions.State as actionstate,
+                actions.Parent as actionparent,
+                tasks.CreationDateTime as taskcreationdt,
+                tasks.Deadline as taskdeadline,
+                dgroups.Id as dgroupid,
+                dgroups.Title as dgrouptitle,
+                dgroups.Description as dgroupdescription,
+                dgroups.AccessKey as dgroupkey,
+                users.Id as dgroupownerid,
+                users.Username as dgroupownerusername,
+                users.Password as dgroupownerpassword,
+                supergroups.Id as supergroupid,
+                supergroups.Title as supergrouptitle,
+                supergroups.Description as supergroupdescription,
+                supergroups.AccessKey as supergroupkey,
+                sgusers.Id as sgownerid,
+                sgusers.Username as sgownerusername,
+                sgusers.Password as sgownerpassword
+            from [dbo].[LocalActions] actions
+            inner join [dbo].[Groups] dgroups
+            on dgroups.Id = actions.DGroup
+            inner join [dbo].[Users] users
+            on dgroups.Owner = users.Id
+            inner join [dbo].[LocalTasks] tasks
+            on tasks.Id = actions.Id
+            inner join [dbo].[SuperGroups] supergroups
+            on dgroups.SuperGroup = supergroups.Id
+            inner join [dbo].[Users] sgusers
+            on supergroups.Owner = sgusers.Id
+            where actions.Id = @id
+        </Command>
+        <Command Name="Create">
+            begin transaction
+                insert into [dbo].[LocalActions] values (@id, @state, @parent, @dgroup, @title, @description, @type);
+                insert into [dbo].[LocalTasks] values (@id, @creationdt, @deadline);
+            commit
+        </Command>
+        <Command Name="Delete">
+            begin transaction
+                delete from [dbo].[LocalActions] where Id=@id
+                delete from [dbo].[LocalTasks] where Id=@id
+            commit
+        </Command>
+        <Command Name="Update">
+            begin transaction
+                update [dbo].[LocalActions]
+                set
+                State=@state, Parent=@parent, DGroup=@dgroup, Title=@title, Description=@description, Type=@type
+                where Id=@id;
+                update [dbo].[LocalTasks]
+                set
+                CreationDateTime=@creationdt, Deadline=@deadline
+                where Id=@id;
+            commit
+        </Command>
+    </Table>
+    <Table Name="LocalEvents">
+        <Command Name="GetAll">
+            select
+                actions.Id as actionid,
+                actions.Title as actiontitle,
+                actions.Description as actiondescription,
+                actions.State as actionstate,
+                actions.Parent as actionparent,
+                events.DateTime as eventdt,
+                dgroups.Id as dgroupid,
+                dgroups.Title as dgrouptitle,
+                dgroups.Description as dgroupdescription,
+                dgroups.AccessKey as dgroupkey,
+                users.Id as dgroupownerid,
+                users.Username as dgroupownerusername,
+                users.Password as dgroupownerpassword,
+                supergroups.Id as supergroupid,
+                supergroups.Title as supergrouptitle,
+                supergroups.Description as supergroupdescription,
+                supergroups.AccessKey as supergroupkey,
+                sgusers.Id as sgownerid,
+                sgusers.Username as sgownerusername,
+                sgusers.Password as sgownerpassword
+            from [dbo].[LocalActions] actions
+            inner join [dbo].[Groups] dgroups
+            on dgroups.Id = actions.DGroup
+            inner join [dbo].[Users] users
+            on dgroups.Owner = users.Id
+            inner join [dbo].[LocalEvents] events
+            on events.Id = actions.Id
+            inner join [dbo].[SuperGroups] supergroups
+            on dgroups.SuperGroup = supergroups.Id
+            inner join [dbo].[Users] sgusers
+            on supergroups.Owner = sgusers.Id
+        </Command>
+        <Command Name="GetById">
+            select
+                actions.Id as actionid,
+                actions.Title as actiontitle,
+                actions.Description as actiondescription,
+                actions.State as actionstate,
+                actions.Parent as actionparent,
+                events.DateTime as eventdt,
+                dgroups.Id as dgroupid,
+                dgroups.Title as dgrouptitle,
+                dgroups.Description as dgroupdescription,
+                dgroups.AccessKey as dgroupkey,
+                users.Id as dgroupownerid,
+                users.Username as dgroupownerusername,
+                users.Password as dgroupownerpassword,
+                supergroups.Id as supergroupid,
+                supergroups.Title as supergrouptitle,
+                supergroups.Description as supergroupdescription,
+                supergroups.AccessKey as supergroupkey,
+                sgusers.Id as sgownerid,
+                sgusers.Username as sgownerusername,
+                sgusers.Password as sgownerpassword
+            from [dbo].[LocalActions] actions
+            inner join [dbo].[Groups] dgroups
+            on dgroups.Id = actions.DGroup
+            inner join [dbo].[Users] users
+            on dgroups.Owner = users.Id
+            inner join [dbo].[LocalEvents] events
+            on events.Id = actions.Id
+            inner join [dbo].[SuperGroups] supergroups
+            on dgroups.SuperGroup = supergroups.Id
+            inner join [dbo].[Users] sgusers
+            on supergroups.Owner = sgusers.Id
+            where actions.Id = @id
+        </Command>
+        <Command Name="Create">
+            begin transaction
+                insert into [dbo].[LocalActions] values (@id, @state, @parent, @dgroup, @title, @description, @type);
+                insert into [dbo].[LocalEvents] values (@id, @datetime);
+            commit
+        </Command>
+        <Command Name="Delete">
+            begin transaction
+                delete from [dbo].[LocalActions] where Id=@id
+                delete from [dbo].[LocalEvents] where Id=@id
+            commit
+        </Command>
+        <Command Name="Update">
+            begin transaction
+                update [dbo].[LocalActions]
+                set
+                State=@state, Parent=@parent, DGroup=@dgroup, Title=@title, Description=@description, Type=@type
+                where Id=@id;
+                update [dbo].[LocalEvents]
+                set
+                DateTime=@datetime
+                where Id=@id;
+            commit
+        </Command>
+    </Table>
+    <Table Name="UserToGroup">
+        <Command Name="GetAll">
+            select
+            Id,
+            UserId,
+            GroupId
+            from [dbo].[UserToGroup]
+        </Command>
+        <Command Name="GetById">
+            select
+            Id,
+            UserId,
+            GroupId
+            from [dbo].[UserToGroup]
+            where Id = @id
+        </Command>
+        <Command Name="Create">
+            insert into [dbo].[UserToGroup] values (@id, @userid, @groupid)
+        </Command>
+        <Command Name="Delete">
+            delete from [dbo].[UserToGroup] where Id=@id
+        </Command>
+        <Command Name="Update">
+            update [dbo].[UserToGroup]
+            set
+            UserId=@userid, GroupId=@groupid
+            where Id=@id
+        </Command>
+    </Table>
+    <Table Name="UserToSuperGroup">
+        <Command Name="GetAll">
+            select
+            Id,
+            UserId,
+            SuperGroupId
+            from [dbo].[UserToSuperGroup]
+        </Command>
+        <Command Name="GetById">
+            select
+            Id,
+            UserId,
+            SuperGroupId
+            from [dbo].[UserToSuperGroup]
+            where Id = @id
+        </Command>
+        <Command Name="Create">
+            insert into [dbo].[UserToSuperGroup] values (@id, @userid, @supergroupid)
+        </Command>
+        <Command Name="Delete">
+            delete from [dbo].[UserToSuperGroup] where Id=@id
+        </Command>
+        <Command Name="Update">
+            update [dbo].[UserToSuperGroup]
+            set
+            UserId=@userid, SuperGroupId=@supergroupid
+            where Id=@id
+        </Command>
+    </Table>
+    <Table Name="UserToLocalAction">
+        <Command Name="GetAll">
+            select
+            Id,
+            UserId,
+            LocalActionId,
+            State
+            from [dbo].[UserToLocalAction]
+        </Command>
+        <Command Name="GetById">
+            select
+            Id,
+            UserId,
+            LocalActionId,
+            StateId
+            from [dbo].[UserToLocalAction]
+            where Id = @id
+        </Command>
+        <Command Name="Create">
+            insert into [dbo].[UserToLocalAction] values (@id, @userid, @localactionid, @stateid)
+        </Command>
+        <Command Name="Delete">
+            delete from [dbo].[UserToLocalAction] where Id=@id
+        </Command>
+        <Command Name="Update">
+            update [dbo].[UserToLocalAction]
+            set
+            UserId=@userid, LocalActionId=@localactionid, StateId=@stateid
+            where Id=@id
         </Command>
     </Table>
 </Root>
