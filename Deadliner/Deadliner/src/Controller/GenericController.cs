@@ -32,4 +32,8 @@ public class GenericController<T> : IController<T> where T : IObject
     {
         _storage.Delete(id);
     }
+
+    public void Save()
+    {
+    }
 }

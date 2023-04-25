@@ -6,6 +6,7 @@ using Deadliner.Api.Utils;
 using Deadliner.Controller;
 using Deadliner.Models;
 using Deadliner.Models.LocalActionStates;
+using Deadliner.Storage.EF.DataProviders;
 using Deadliner.Utils;
 using NUnit.Framework;
 
@@ -92,6 +93,7 @@ public class ActivityFactoryTest
             UserToSuperGroup = new GenericController<IUserToSuperGroup>();
             UserToGroup = new GenericController<IUserToGroup>();
             UserToLocalAction = new GenericController<IUserToLocalAction>();
+            Calendars = new GenericController<ICalendar>();
             _timeProvider = new TimeProviderMock();
         }
         public DateTime CurrentDateTime
@@ -107,6 +109,8 @@ public class ActivityFactoryTest
         public IController<IUserToSuperGroup> UserToSuperGroup { get; }
         public IController<IUserToGroup> UserToGroup { get; }
         public IController<IUserToLocalAction> UserToLocalAction { get; }
+        public IController<ICalendar> Calendars { get; }
+
         public ITimeProvider TimeProvider
         {
             get => _timeProvider;

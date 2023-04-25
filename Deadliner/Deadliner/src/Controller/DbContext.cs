@@ -1,23 +1,26 @@
+using System.Globalization;
 using Deadliner.Api.Controller;
 using Deadliner.Api.Models;
 using Deadliner.Api.Models.Relationships;
 using Deadliner.Api.Utils;
+using Deadliner.Storage.EF.DataProviders;
 using Deadliner.Utils;
 
 namespace Deadliner.Controller;
 
-public class AdoContext : IContext
+public class DbContext : IContext
 {
-    public AdoContext()
+    public DbContext()
     {
-        SuperGroups = new AdoController<ISuperGroup>();
-        Groups = new AdoController<IGroup>();
-        Users = new AdoController<IUser>();
-        LocalTasks = new AdoController<ILocalTask>();
-        LocalEvents = new AdoController<ILocalEvent>();
-        UserToSuperGroup = new AdoController<IUserToSuperGroup>();
-        UserToGroup = new AdoController<IUserToGroup>();
-        UserToLocalAction = new AdoController<IUserToLocalAction>();
+        SuperGroups = new DbController<ISuperGroup>();
+        Groups = new DbController<IGroup>();
+        Users = new DbController<IUser>();
+        LocalTasks = new DbController<ILocalTask>();
+        LocalEvents = new DbController<ILocalEvent>();
+        UserToSuperGroup = new DbController<IUserToSuperGroup>();
+        UserToGroup = new DbController<IUserToGroup>();
+        UserToLocalAction = new DbController<IUserToLocalAction>();
+        Calendars = new DbController<ICalendar>();
         TimeProvider = new TimeProvider();
     }
 
@@ -29,5 +32,6 @@ public class AdoContext : IContext
     public IController<IUserToSuperGroup> UserToSuperGroup { get; }
     public IController<IUserToGroup> UserToGroup { get; }
     public IController<IUserToLocalAction> UserToLocalAction { get; }
+    public IController<ICalendar> Calendars { get; }
     public ITimeProvider TimeProvider { get; }
 }

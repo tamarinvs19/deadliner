@@ -24,16 +24,16 @@ public class CalendarBuilder : IAbstractCalendarBuilder
     {
         var superGroupsWithUser = _context.UserToSuperGroup
             .Items()
-            .Where(it => it.User == User && it.SuperGroup == superGroup)
+            .Where(it => Equals(it.User, User) && Equals(it.SuperGroup, superGroup))
             .ToList()
             .Count;
         if (superGroupsWithUser > 0)
         {
             var groupsWithUser = _context.UserToGroup
                 .Items()
-                .Where(it => it.User == User && it.Group.SuperGroup == superGroup)
+                .Where(it => Equals(it.User, User) && Equals(it.Group.SuperGroup, superGroup))
                 .Select(it => it.Group);
-            var actions = (_context.LocalEvents.Items().Union<ILocalAction>(_context.LocalTasks.Items()))
+            var actions = _context.LocalEvents.Items().Union<ILocalAction>(_context.LocalTasks.Items())
                 .Where(it => groupsWithUser.Contains(it.Group));
             _localActions = _localActions.Union(actions);
         }
@@ -45,9 +45,9 @@ public class CalendarBuilder : IAbstractCalendarBuilder
     {
         var groupsWithUser = _context.UserToGroup
             .Items()
-            .Where(it => it.User == User && it.Group == group)
+            .Where(it => Equals(it.User, User) && Equals(it.Group, group))
             .Select(it => it.Group);
-        var actions = (_context.LocalEvents.Items().Union<ILocalAction>(_context.LocalTasks.Items()))
+        var actions = _context.LocalEvents.Items().Union<ILocalAction>(_context.LocalTasks.Items())
             .Where(it => groupsWithUser.Contains(it.Group));
         _localActions = _localActions.Union(actions);
 
@@ -58,7 +58,7 @@ public class CalendarBuilder : IAbstractCalendarBuilder
     {
         var actions = _context.UserToLocalAction
             .Items()
-            .Where(it => it.User == User && it.LocalAction == localAction)
+            .Where(it => Equals(it.User, User) && Equals(it.LocalAction, localAction))
             .Select(it => it.LocalAction);
         _localActions = _localActions.Union(actions);
 
@@ -79,6 +79,6 @@ public class CalendarBuilder : IAbstractCalendarBuilder
 
     public ICalendar Build()
     {
-        return new Calendar(_localActions);
+        return new Calendar(User, _localActions);
     }
 }

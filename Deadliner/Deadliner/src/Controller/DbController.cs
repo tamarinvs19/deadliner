@@ -3,14 +3,15 @@ using Deadliner.Api.Models;
 using Deadliner.Api.Models.Relationships;
 using Deadliner.Api.Storage;
 using Deadliner.Storage.Ado.DataProviders;
+using Deadliner.Storage.EF.DataProviders;
 
 namespace Deadliner.Controller;
 
-public class AdoController<T> : IController<T> where T : IObject
+public class DbController<T> : IController<T> where T : IObject
 {
     private readonly IStorage<T> _storage;
 
-    public AdoController()
+    public DbController()
     {
         _storage = GetProvider<T>();
     }
@@ -51,6 +52,10 @@ public class AdoController<T> : IController<T> where T : IObject
         {
             return (IStorage<TS>)new UserToSuperGroupDataProvider();
         }
+        if (type == typeof(ICalendar))
+        {
+            return (IStorage<TS>)new CalendarDataProvider(new EfContext());
+        }
 
         throw new Exception($"Bad type {typeof(TS)}");
     }
@@ -78,5 +83,10 @@ public class AdoController<T> : IController<T> where T : IObject
     public void Delete(int id)
     {
         _storage.Delete(id);
+    }
+    
+    public void Save()
+    {
+        _storage.Save();
     }
 }

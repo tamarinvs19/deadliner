@@ -18,6 +18,7 @@ public class BaseContext : IContext
         UserToSuperGroup = new GenericController<IUserToSuperGroup>();
         UserToGroup = new GenericController<IUserToGroup>();
         UserToLocalAction = new GenericController<IUserToLocalAction>();
+        Calendars = new GenericController<ICalendar>();
         TimeProvider = new TimeProvider();
     }
 
@@ -29,5 +30,6 @@ public class BaseContext : IContext
     public IController<IUserToSuperGroup> UserToSuperGroup { get; }
     public IController<IUserToGroup> UserToGroup { get; }
     public IController<IUserToLocalAction> UserToLocalAction { get; }
+    public IController<ICalendar> Calendars { get; }
     public ITimeProvider TimeProvider { get; }
 }

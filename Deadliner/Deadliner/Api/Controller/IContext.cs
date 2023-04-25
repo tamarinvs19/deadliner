@@ -17,5 +17,6 @@ public interface IContext  // фасад
     IController<IUserToSuperGroup> UserToSuperGroup { get; }
     IController<IUserToGroup> UserToGroup { get; }
     IController<IUserToLocalAction> UserToLocalAction { get; }
+    IController<ICalendar> Calendars { get; }
     ITimeProvider TimeProvider { get; }
 }

@@ -10,4 +10,5 @@ public interface IController<T> where T: IObject
     void Create(T item);
     void Update(T item);
     void Delete(int id);
+    void Save();
 }

@@ -5,16 +5,26 @@ namespace Deadliner.Models;
 
 public class Calendar : ICalendar
 {
-    public Calendar(IEnumerable<ILocalTask> localTasks, IEnumerable<ILocalEvent> localEvents)
+    public Calendar(int id, IUser user, IEnumerable<ILocalTask> localTasks, IEnumerable<ILocalEvent> localEvents)
     {
-        Id = IdGenerator.Instance.NextId();
+        Id = id;
+        User = user;
         LocalTasks = localTasks.ToList();
         LocalEvents = localEvents.ToList();
     }
     
-    public Calendar(IEnumerable<ILocalAction> localActions)
+    public Calendar(IUser user, IEnumerable<ILocalTask> localTasks, IEnumerable<ILocalEvent> localEvents)
     {
         Id = IdGenerator.Instance.NextId();
+        User = user;
+        LocalTasks = localTasks.ToList();
+        LocalEvents = localEvents.ToList();
+    }
+    
+    public Calendar(IUser user, IEnumerable<ILocalAction> localActions)
+    {
+        Id = IdGenerator.Instance.NextId();
+        User = user;
         var actions = localActions.ToList();
         LocalTasks = actions.OfType<ILocalTask>().ToList();
         LocalEvents = actions.OfType<ILocalEvent>().ToList();
@@ -37,10 +47,11 @@ public class Calendar : ICalendar
 
     public override int GetHashCode()
     {
-        return HashCode.Combine(Id, LocalTasks, LocalEvents);
+        return HashCode.Combine(Id);
     }
 
     public int Id { get; }
+    public IUser User { get; set; }
     public List<ILocalTask> LocalTasks { get; set; }
     public List<ILocalEvent> LocalEvents { get; set; }
 }
