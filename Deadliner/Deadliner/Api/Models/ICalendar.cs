@@ -1,5 +1,3 @@
-using Deadliner.Models;
-
 namespace Deadliner.Api.Models;
 
 public interface ICalendar : IObject

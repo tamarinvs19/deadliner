@@ -19,7 +19,7 @@ public class MainContainer  // DI-container
         builder.RegisterType<IdGenerator>().As<IIdGenerator>().SingleInstance();
         builder.RegisterType<TimeProvider>().As<ITimeProvider>().InstancePerLifetimeScope();
         // builder.RegisterType<BaseContext>().As<IContext>().SingleInstance();
-        builder.RegisterType<AdoContext>().As<IContext>().SingleInstance();
+        builder.RegisterType<MyDeadlinerContext>().As<IContext>().SingleInstance();
         builder.RegisterType<ActivityFactory>().As<IAbstractActivityFactory>();
         
         Container = builder.Build();

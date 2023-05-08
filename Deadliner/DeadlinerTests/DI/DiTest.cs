@@ -72,6 +72,14 @@ public class DiTest
         var user = context.Users.Get(100500);
         Assert.That(user.Id, Is.EqualTo(100500));
         context.Users.Delete(100500);
-        Assert.That(context.Users.Get(100500), Is.Null);
+        try
+        {
+            var item = context.Users.Get(100500);
+            Assert.That(item, Is.Null);
+        }
+        catch (InvalidOperationException e)
+        {
+            Assert.True(true);
+        }
     }
 }
