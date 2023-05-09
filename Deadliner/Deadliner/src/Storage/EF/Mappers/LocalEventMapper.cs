@@ -27,27 +27,12 @@ public class LocalEventMapper : IMapper<ILocalEvent, LocalEvent>
     
     public LocalEvent WriteItem(ILocalEvent model)
     {
-        LocalAction? baseParent = null;
-        if (model.Parent is ILocalTask task)
-        {
-            baseParent = new LocalAction
-            {
-                Id = task.Id,
-                Description = task.Description,
-                DgroupNavigation = new GroupMapper().WriteItem(task.Group),
-                Parent = task.Parent?.Id,
-                Title = task.Title,
-                State = StateIdTransformer.GetStateId(task.State)
-            };
-            var parent = new LocalTaskMapper().WriteItem(task);
-            parent.IdNavigation = baseParent;
-        }
         var localAction = new LocalAction
         {
             Id = model.Id,
             State = StateIdTransformer.GetStateId(model.State),
-            ParentNavigation = baseParent,
-            DgroupNavigation = new GroupMapper().WriteItem(model.Group),
+            Parent = model.Parent?.Id,
+            Dgroup = model.Group.Id,
             Title = model.Title,
             Description = model.Description,
             Type = 1

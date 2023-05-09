@@ -18,8 +18,8 @@ public class UserToGroupMapper : IMapper<IUserToGroup, UserToGroup>
     {
         return new UserToGroup {
             Id = model.Id,
-            User = new UserMapper().WriteItem(model.User),
-            Group = new GroupMapper().WriteItem(model.Group)
+            UserId = model.User.Id,
+            GroupId = model.Group.Id
         };
     }
 }

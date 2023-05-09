@@ -23,12 +23,13 @@ public class UserToGroupDataProvider : IStorage<IUserToGroup>
 
     public IEnumerable<IUserToGroup> Items()
     {
-        return _dbSet.Select(it => _mapper.ReadItem(it));
+        return _dbSet.ToList().Select(it => _mapper.ReadItem(it));
     }
 
     public IUserToGroup Get(int id)
     {
         return _dbSet
+            .ToList()
             .Where(it => it.Id == id)
             .Select(it => _mapper.ReadItem(it))
             .First();
@@ -49,10 +50,7 @@ public class UserToGroupDataProvider : IStorage<IUserToGroup>
 
     public void Delete(int id)
     {
-        foreach (var item in _dbSet.Where(it => it.Id == id))
-        {
-            _dbSet.Remove(item);
-        }
+        _dbSet.RemoveRange(_dbSet.Where(it => it.Id == id));
     }
 
     public void Save()

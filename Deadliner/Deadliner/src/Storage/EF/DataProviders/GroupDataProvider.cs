@@ -1,16 +1,15 @@
-
+using System.Data.Entity;
 using Deadliner.Api.Models;
 using Deadliner.Api.Storage;
 using Deadliner.Storage.EF.Mappers;
 using Deadliner.Storage.EF.ModelsDB;
-using Microsoft.EntityFrameworkCore;
 
 namespace Deadliner.Storage.EF.DataProviders;
 
 public class GroupDataProvider : IStorage<IGroup>
 {
     private readonly DeadlinerContext _context;
-    private readonly DbSet<Group> _dbSet;
+    private readonly Microsoft.EntityFrameworkCore.DbSet<Group> _dbSet;
     private readonly GroupMapper _mapper;
     
     public GroupDataProvider(DeadlinerContext context)
@@ -24,12 +23,13 @@ public class GroupDataProvider : IStorage<IGroup>
 
     public IEnumerable<IGroup> Items()
     {
-        return _dbSet.Select(it => _mapper.ReadItem(it));
+        return _dbSet.ToList().Select(it => _mapper.ReadItem(it));
     }
 
     public IGroup Get(int id)
     {
         return _dbSet
+            .ToList()
             .Where(it => it.Id == id)
             .Select(it => _mapper.ReadItem(it))
             .First();
@@ -50,10 +50,7 @@ public class GroupDataProvider : IStorage<IGroup>
 
     public void Delete(int id)
     {
-        foreach (var item in _dbSet.Where(it => it.Id == id))
-        {
-            _dbSet.Remove(item);
-        }
+        _dbSet.RemoveRange(_dbSet.Where(it => it.Id == id));
     }
 
     public void Save()

@@ -3,27 +3,29 @@ using Deadliner.Storage.EF.ModelsDB;
 
 namespace Deadliner.Storage.EF.Mappers;
 
-public class SuperGroupMapper : IMapper<ISuperGroup, SuperGroup>
+public class GroupMapper : IMapper<IGroup, Group>
 {
-    public ISuperGroup ReadItem(SuperGroup model)
+    public IGroup ReadItem(Group model)
     {
-        return new Models.SuperGroup(
+        return new Models.Group(
             model.Id,
             model.Title,
             model.Description,
             model.AccessKey,
-            new UserMapper().ReadItem(model.OwnerNavigation)
+            new UserMapper().ReadItem(model.OwnerNavigation),
+            new SuperGroupMapper().ReadItem(model.SuperGroupNavigation)
         );
     }
     
-    public SuperGroup WriteItem(ISuperGroup model)
+    public Group WriteItem(IGroup model)
     {
-        return new SuperGroup {
+        return new Group {
             Id = model.Id,
             Title = model.Title,
             Description = model.Description,
             AccessKey = model.AccessKey,
-            Owner = model.Owner.Id
+            Owner = model.Owner.Id,
+            SuperGroup = model.SuperGroup.Id
         };
     }
 }
