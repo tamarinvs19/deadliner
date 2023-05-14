@@ -8,4 +8,9 @@ public class TimeProvider : ITimeProvider
     {
         return DateTime.Now;
     }
+
+    public DateTime Today()
+    {
+        return DateTime.Today;
+    }
 }

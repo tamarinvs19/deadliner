@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deadliner", "Deadliner\Dead
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeadlinerTests", "DeadlinerTests\DeadlinerTests.csproj", "{F8606AFF-1A06-4E85-9029-19851B8214AA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeadlinerUI", "DeadlinerUI\DeadlinerUI.csproj", "{2FD5F3BC-860C-43AA-800F-CB3012CE4A97}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{F8606AFF-1A06-4E85-9029-19851B8214AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8606AFF-1A06-4E85-9029-19851B8214AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8606AFF-1A06-4E85-9029-19851B8214AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FD5F3BC-860C-43AA-800F-CB3012CE4A97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FD5F3BC-860C-43AA-800F-CB3012CE4A97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FD5F3BC-860C-43AA-800F-CB3012CE4A97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FD5F3BC-860C-43AA-800F-CB3012CE4A97}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

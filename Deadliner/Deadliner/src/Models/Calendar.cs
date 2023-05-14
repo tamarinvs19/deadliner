@@ -20,6 +20,21 @@ public class Calendar : ICalendar
         LocalEvents = actions.OfType<ILocalEvent>().ToList();
     }
 
+    public int Size()
+    {
+        return LocalTasks.Count + LocalEvents.Count;
+    }
+
+
+    public DateTime? DateTime { get; set; }
+
+    public List<ILocalAction> LocalActions()
+    {
+        var res = LocalEvents.Cast<ILocalAction>().ToList();
+        res.AddRange(LocalTasks.Cast<ILocalAction>().ToList());
+        return res;
+    }
+
     public override bool Equals(object? obj)
     {
         if (obj is ICalendar other)

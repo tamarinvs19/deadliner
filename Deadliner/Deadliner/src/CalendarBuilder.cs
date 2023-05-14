@@ -45,7 +45,7 @@ public class CalendarBuilder : IAbstractCalendarBuilder
     {
         var groupsWithUser = _context.UserToGroup
             .Items()
-            .Where(it => it.User == User && it.Group == group)
+            .Where(it => Equals(it.User, User) && Equals(it.Group, group))
             .Select(it => it.Group);
         var actions = (_context.LocalEvents.Items().Union<ILocalAction>(_context.LocalTasks.Items()))
             .Where(it => groupsWithUser.Contains(it.Group));
@@ -58,9 +58,9 @@ public class CalendarBuilder : IAbstractCalendarBuilder
     {
         var actions = _context.UserToLocalAction
             .Items()
-            .Where(it => it.User == User && it.LocalAction == localAction)
+            .Where(it => Equals(it.User, User) && Equals(it.LocalAction, localAction))
             .Select(it => it.LocalAction);
-        _localActions = _localActions.Union(actions);
+        _localActions = _localActions.Union(actions.ToList());
 
         return this;
     }
@@ -80,5 +80,32 @@ public class CalendarBuilder : IAbstractCalendarBuilder
     public ICalendar Build()
     {
         return new Calendar(_localActions);
+    }
+    
+    public List<ICalendar> DaySplitBuild(DateTime from, DateTime to)
+    {
+        var calendars = new List<ICalendar>();
+        var dayCount = (to - from).Days;
+        for (var i = 0; i < dayCount; i++)
+        {
+            var dt = from + TimeSpan.FromDays(i);
+            var calendar = new Calendar(_localActions.Where(it => IsLocalActionInDate(dt, it)))
+            {
+                DateTime = dt
+            };
+            calendars.Add(calendar);
+        }
+
+        return calendars;
+    }
+
+    private static bool IsLocalActionInDate(DateTime dateTime, ILocalAction localAction)
+    {
+        return localAction switch
+        {
+            ILocalEvent localEvent => localEvent.DateTime >= dateTime,
+            ILocalTask localTask => localTask.Deadline >= dateTime && localTask.CreationDateTime <= dateTime,
+            _ => false
+        };
     }
 }

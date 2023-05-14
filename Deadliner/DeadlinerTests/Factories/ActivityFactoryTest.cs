@@ -73,6 +73,11 @@ public class ActivityFactoryTest
             return _current;
         }
 
+        public DateTime Today()
+        {
+            return _current;
+        }
+
         public void SetTime(DateTime current)
         {
             _current = current;

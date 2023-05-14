@@ -11,4 +11,5 @@ public interface IAbstractCalendarBuilder  // Строитель
     IAbstractCalendarBuilder FilterParentsLocalAction();
     IAbstractCalendarBuilder FilterKindLocalAction<T> () where T : ILocalAction;
     ICalendar Build();
+    public List<ICalendar> DaySplitBuild(DateTime from, DateTime to);
 }
