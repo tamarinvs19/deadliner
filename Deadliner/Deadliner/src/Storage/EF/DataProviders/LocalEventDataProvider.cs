@@ -40,7 +40,7 @@ public class LocalEventDataProvider : IStorage<ILocalEvent>
         var dbItem = _mapper.WriteItem(item);
         if (_dbSet.Contains(dbItem))
         {
-            _dbSet.Entry(dbItem);
+            _dbSet.Entry(dbItem).CurrentValues.SetValues(dbItem);
         }
         else
         {
@@ -52,7 +52,9 @@ public class LocalEventDataProvider : IStorage<ILocalEvent>
     {
         var dbItem = _mapper.WriteItem(item);
         var current = _dbSet.First(it => it.Id == item.Id);
+        var currentAction = _context.LocalActions.First(it => it.Id == item.Id);
         _context.Entry(current).CurrentValues.SetValues(dbItem);
+        _context.Entry(currentAction).CurrentValues.SetValues(dbItem.IdNavigation);
     }
 
     public void Delete(int id)

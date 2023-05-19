@@ -56,11 +56,14 @@ public class CalendarBuilder : IAbstractCalendarBuilder
 
     public IAbstractCalendarBuilder AddLocalAction(ILocalAction localAction)
     {
-        var actions = _context.UserToLocalAction
+        var actionsIds = _context.UserToLocalAction
             .Items()
             .Where(it => it.User.Id == User.Id && it.LocalAction.Id == localAction.Id)
-            .Select(it => it.LocalAction);
-        _localActions = _localActions.Union(actions.ToList());
+            .Select(it => it.LocalAction.Id);
+        if (actionsIds.Contains(localAction.Id))
+        {
+            _localActions = _localActions.Append(localAction);
+        }
 
         return this;
     }

@@ -2,8 +2,6 @@
 using System.Windows;
 using System.Windows.Controls;
 using Deadliner;
-using Deadliner.Models;
-using Deadliner.Models.LocalActionStates;
 using DeadlinerUI.ViewModel;
 
 namespace DeadlinerUI.View
@@ -23,10 +21,11 @@ namespace DeadlinerUI.View
             var context = (EventsVm)DataContext;
             if (context.SelectedAction != null)
             {
-                context.SelectedAction.DateTime = (DateTime)ActionDatetime.SelectedDate;
-                context.SelectedAction.Title = ActionTitle.Text;
-                context.SelectedAction.Description = ActionDescription.Text;
-                context.UpdateAction(context.SelectedAction);
+                var newAction = context.SelectedAction;
+                newAction.DateTime = (DateTime)ActionDatetime.SelectedDate;
+                newAction.Title = ActionTitle.Text;
+                newAction.Description = ActionDescription.Text;
+                context.UpdateAction(newAction);
             }
         }
         
