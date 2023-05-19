@@ -1,0 +1,73 @@
+﻿<Page x:Class="DeadlinerUI.View.Events"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:viewModel="clr-namespace:DeadlinerUI.ViewModel"
+      mc:Ignorable="d"
+      d:DesignHeight="600"
+      d:DesignWidth="622"
+      Style="{StaticResource PageStyle}">
+
+  <Page.DataContext>
+    <viewModel:EventsVm />
+  </Page.DataContext>
+
+  <Grid Margin="15">
+
+    <Border CornerRadius="0,20,20,0"/>
+
+      <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+        
+        <ListBox Grid.Column="0" Grid.Row="0"
+          ItemsSource="{Binding LocalActions}"
+          SelectedItem="{Binding SelectedAction}"
+          ScrollViewer.VerticalScrollBarVisibility="Auto"
+          Margin="0,0,10,10">
+          <ListBox.ItemTemplate>
+            <DataTemplate>
+              <StackPanel Margin="5" Orientation="Horizontal">
+                <TextBlock FontSize="18" Text="{Binding Path=Title}" VerticalAlignment="Center" />
+              </StackPanel>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+        </ListBox>
+    
+        <StackPanel Grid.Column="1" Grid.Row="0">
+          <TextBlock Text="Title"></TextBlock>
+          <TextBox Name="ActionTitle" Text="{Binding Path=SelectedAction.Title}"></TextBox> 
+          
+          <TextBlock Text="Description"></TextBlock>
+          <TextBox Name="ActionDescription" Text="{Binding Path=SelectedAction.Description}"
+                   VerticalAlignment="Top"
+                   TextWrapping="Wrap"
+                   AcceptsReturn="True"
+                   HorizontalScrollBarVisibility="Disabled"
+                   VerticalScrollBarVisibility="Auto" Height="88"/>
+          
+          <TextBlock Text="Datetime"/>
+          <DatePicker Name="ActionDatetime" SelectedDate="{Binding Path=SelectedAction.DateTime}"></DatePicker>
+        
+          <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Foreground="White" Content="Save" Click="Button_Save" Background="Black"
+                    BorderBrush="Silver" />
+            <Button Grid.Column="1" Foreground="White" Content="Create" Click="Button_Create" Background="Black"
+                    BorderBrush="Silver" />
+            <Button Grid.Column="2" Foreground="White" Content="Delete" Click="Button_Delete" Background="Black"
+                    BorderBrush="Silver" />
+          </Grid>
+        </StackPanel>
+    
+      </Grid>
+
+  </Grid>
+</Page>

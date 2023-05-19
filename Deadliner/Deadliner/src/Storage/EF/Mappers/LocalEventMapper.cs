@@ -35,7 +35,7 @@ public class LocalEventMapper : IMapper<ILocalEvent, LocalEvent>
             Dgroup = model.Group.Id,
             Title = model.Title,
             Description = model.Description,
-            Type = 1
+            Type = LocalActionTypeTransformer.GetTypeId(model)
         };
         var localEvent = new LocalEvent
         {

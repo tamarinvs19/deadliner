@@ -36,7 +36,7 @@ public class LocalTaskMapper : IMapper<ILocalTask, LocalTask>
             Dgroup = model.Group.Id,
             Title = model.Title,
             Description = model.Description,
-            Type = 1
+            Type = LocalActionTypeTransformer.GetTypeId(model)
         };
         var localTask = new LocalTask
         {

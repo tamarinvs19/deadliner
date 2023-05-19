@@ -1,0 +1,72 @@
+﻿<Page x:Class="DeadlinerUI.View.Calendar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:viewModel="clr-namespace:DeadlinerUI.ViewModel"
+             mc:Ignorable="d"
+             d:DesignHeight="600"
+             d:DesignWidth="622"
+             Style="{StaticResource PageStyle}">
+
+    <Page.DataContext>
+        <viewModel:CalendarVm />
+    </Page.DataContext>
+    
+    <Grid Margin="15">
+
+        <Grid>
+              <Grid.RowDefinitions>
+                      <RowDefinition></RowDefinition>
+                      <RowDefinition></RowDefinition>
+              </Grid.RowDefinitions>
+    
+              <Grid.ColumnDefinitions>
+                      <ColumnDefinition></ColumnDefinition>
+                      <ColumnDefinition></ColumnDefinition>
+              </Grid.ColumnDefinitions>
+    
+        <ListBox Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"
+                 ItemsSource="{Binding Calendars}"
+                 SelectedItem="{Binding SelectedCalendar}"
+                 ScrollViewer.VerticalScrollBarVisibility="Auto"
+                 Margin="0,0,10,10">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="5" Orientation="Horizontal" MouseDown="Calendar_OnMouseDown">
+                            <TextBlock Width="70" FontSize="15" TextWrapping="Wrap" Text="{Binding DateTime}" VerticalAlignment="Center"/>
+                            <ListBox
+                                ItemsSource="{Binding Path=LocalActions}"
+                                SelectedItem="{Binding Path=SelectedAction}"
+                                >
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Vertical" MouseDown="Action_OnMouseDown">
+                                            <TextBlock FontSize="10" Text="{Binding Path=Title}"></TextBlock>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+        </ListBox>
+        <ListBox Grid.Row="0" Grid.Column="1"
+                 ItemsSource="{Binding SelectedCalendar.LocalActions}"
+                 SelectedItem="{Binding SelectedCalendar.SelectedAction}"
+                 ScrollViewer.VerticalScrollBarVisibility="Auto"
+                 Margin="0,0,10,10">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock FontSize="18" Text="{Binding Path=Title}" VerticalAlignment="Center"/>
+                            <!-- <TextBlock FontSize="12" Text="{Binding Path=Description}" VerticalAlignment="Center"/> -->
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+        </ListBox>
+            <TextBlock Grid.Row="1" Grid.Column="1" FontSize="13" Text="{Binding SelectedCalendar.SelectedAction.Description}"></TextBlock>
+        </Grid>
+
+    </Grid>
+</Page>

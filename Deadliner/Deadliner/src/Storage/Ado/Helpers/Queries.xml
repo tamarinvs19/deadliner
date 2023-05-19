@@ -171,8 +171,8 @@
         </Command>
         <Command Name="Delete">
             begin transaction
-                delete from [dbo].[LocalActions] where Id=@id
                 delete from [dbo].[LocalTasks] where Id=@id
+                delete from [dbo].[LocalActions] where Id=@id
             commit
         </Command>
         <Command Name="Update">
@@ -266,8 +266,8 @@
         </Command>
         <Command Name="Delete">
             begin transaction
-                delete from [dbo].[LocalActions] where Id=@id
                 delete from [dbo].[LocalEvents] where Id=@id
+                delete from [dbo].[LocalActions] where Id=@id
             commit
         </Command>
         <Command Name="Update">
@@ -347,7 +347,7 @@
             Id,
             UserId,
             LocalActionId,
-            State
+            StateId
             from [dbo].[UserToLocalAction]
         </Command>
         <Command Name="GetById">

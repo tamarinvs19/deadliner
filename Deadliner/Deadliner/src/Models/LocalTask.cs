@@ -56,7 +56,7 @@ public class LocalTask : ILocalTask
     public int Id { get; }
     public string Title { get; set; }
     public string Description { get; set; }
-    public DateTime CreationDateTime { get; }
+    public DateTime CreationDateTime { get; set; }
     public DateTime Deadline { get; set; }
     public ILocalAction? Parent { get; set; }
 

@@ -2,7 +2,7 @@ using Deadliner.Api;
 using Deadliner.Api.Controller;
 using Deadliner.Api.Models;
 using Deadliner.Api.Models.LocalActionStates;
-using Deadliner.Controller;
+using Deadliner.Api.Utils;
 using Deadliner.Models;
 using Deadliner.Models.LocalActionStates;
 
@@ -11,15 +11,18 @@ namespace Deadliner;
 public class ActivityFactory : IAbstractActivityFactory
 {
     private IContext _context;
-    
+    private readonly IIdGenerator _idGenerator;
+
     public ActivityFactory()
     {
         _context = MainContainer.Context();
+        _idGenerator = MainContainer.IdGenerator();
     }
     
     public ActivityFactory(IContext context)
     {
         _context = context;
+        _idGenerator = MainContainer.IdGenerator();
     }
 
     private DateTime CurrentDateTime => _context.TimeProvider.Now();
@@ -36,7 +39,8 @@ public class ActivityFactory : IAbstractActivityFactory
             state = new FutureState();
         }
 
-        var localEvent = new LocalEvent(title, description, datetime, group, state);
+        var id = _idGenerator.NextId();
+        var localEvent = new LocalEvent(id, title, description, datetime, group, state, null);
         _context.LocalEvents.Create(localEvent);
         return localEvent;
     }
@@ -62,7 +66,8 @@ public class ActivityFactory : IAbstractActivityFactory
             state = new OverdueState();
         }
 
-        var localTask = new LocalTask(title, description, creationTime, deadline, group, state);
+        var id = _idGenerator.NextId();
+        var localTask = new LocalTask(id, title, description, creationTime, deadline, group, state, null);
         _context.LocalTasks.Create(localTask);
         return localTask;
     }

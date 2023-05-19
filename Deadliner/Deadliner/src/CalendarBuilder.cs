@@ -58,7 +58,7 @@ public class CalendarBuilder : IAbstractCalendarBuilder
     {
         var actions = _context.UserToLocalAction
             .Items()
-            .Where(it => Equals(it.User, User) && Equals(it.LocalAction, localAction))
+            .Where(it => it.User.Id == User.Id && it.LocalAction.Id == localAction.Id)
             .Select(it => it.LocalAction);
         _localActions = _localActions.Union(actions.ToList());
 
@@ -103,7 +103,7 @@ public class CalendarBuilder : IAbstractCalendarBuilder
     {
         return localAction switch
         {
-            ILocalEvent localEvent => localEvent.DateTime >= dateTime,
+            ILocalEvent localEvent => localEvent.DateTime.Date == dateTime.Date,
             ILocalTask localTask => localTask.Deadline >= dateTime && localTask.CreationDateTime <= dateTime,
             _ => false
         };

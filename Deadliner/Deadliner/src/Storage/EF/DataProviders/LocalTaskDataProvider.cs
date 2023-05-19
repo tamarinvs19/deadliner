@@ -38,7 +38,14 @@ public class LocalTaskDataProvider : IStorage<ILocalTask>
     public void Create(ILocalTask item)
     {
         var dbItem = _mapper.WriteItem(item);
-        _dbSet.Add(dbItem);
+        if (_dbSet.Contains(dbItem))
+        {
+            _dbSet.Entry(dbItem);
+        }
+        else
+        {
+            _dbSet.Add(dbItem);
+        }
     }
 
     public void Update(ILocalTask item)

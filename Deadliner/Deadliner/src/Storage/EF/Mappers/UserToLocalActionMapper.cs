@@ -9,7 +9,23 @@ public class UserToLocalActionMapper : IMapper<IUserToLocalAction, UserToLocalAc
 {
     public IUserToLocalAction ReadItem(UserToLocalAction model)
     {
-        var localAction = _createAction(model.LocalAction);
+        ILocalAction localAction;
+        if (model.LocalAction == null)
+        {
+            var _context = MainContainer.Context();
+            try
+            {
+                localAction = _context.LocalEvents.Get(model.LocalActionId);
+            }
+            catch (Exception e)
+            {
+                localAction = _context.LocalTasks.Get(model.LocalActionId);
+            }
+        }
+        else
+        {
+            localAction = _createAction(model.LocalAction);
+        }
         return new Models.UserToLocalAction(
             model.Id,
             new UserMapper().ReadItem(model.User),
@@ -33,7 +49,7 @@ public class UserToLocalActionMapper : IMapper<IUserToLocalAction, UserToLocalAc
             Id = model.Id,
             UserId = model.User.Id,
             StateId = StateIdTransformer.GetStateId(model.State),
-            LocalActionId = model.Id
+            LocalActionId = model.LocalAction.Id
         };
     }
 }

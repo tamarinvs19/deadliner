@@ -38,7 +38,14 @@ public class LocalEventDataProvider : IStorage<ILocalEvent>
     public void Create(ILocalEvent item)
     {
         var dbItem = _mapper.WriteItem(item);
-        _dbSet.Add(dbItem);
+        if (_dbSet.Contains(dbItem))
+        {
+            _dbSet.Entry(dbItem);
+        }
+        else
+        {
+            _dbSet.Add(dbItem);
+        }
     }
 
     public void Update(ILocalEvent item)

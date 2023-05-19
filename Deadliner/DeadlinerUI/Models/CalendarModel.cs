@@ -11,7 +11,7 @@ using Deadliner.Storage;
 
 namespace DeadlinerUI.Models;
 
-public class Calendar : INotifyPropertyChanged, IObject
+public class CalendarModel : INotifyPropertyChanged, IObject
 {
     private readonly DateTime? _dateTime;
     private ILocalAction? _selectedAction;
@@ -20,7 +20,7 @@ public class Calendar : INotifyPropertyChanged, IObject
     
     public event PropertyChangedEventHandler? PropertyChanged;
 
-    public Calendar(Deadliner.Models.Calendar calendar)
+    public CalendarModel(Deadliner.Models.Calendar calendar)
     {
         Id = calendar.Id;
         _localActions = new MemoryStorage<ILocalAction>();

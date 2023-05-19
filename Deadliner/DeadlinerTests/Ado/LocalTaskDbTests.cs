@@ -29,7 +29,7 @@ public class LocalTaskDbTests
 
         provider.Create( 
             new LocalTask(
-                2,
+                20,
                 "TestTask", 
                 "Random task",
                 new DateTime(2023, 04, 01),
@@ -38,25 +38,25 @@ public class LocalTaskDbTests
                 StateIdTransformer.GetState(0), null
                 )
             );
-        var localTask = provider.Get(2);
+        var localTask = provider.Get(20);
         Assert.Multiple(() =>
         {
-            Assert.That(localTask.Id, Is.EqualTo(2));
+            Assert.That(localTask.Id, Is.EqualTo(20));
             Assert.That(localTask.Title, Is.EqualTo("TestTask"));
         });
     
         localTask.Title = "NewTaskTitle";
         provider.Update(localTask);
         
-        var newTask = provider.Get(2);
+        var newTask = provider.Get(20);
         Assert.Multiple(() =>
         {
-            Assert.That(newTask.Id, Is.EqualTo(2));
+            Assert.That(newTask.Id, Is.EqualTo(20));
             Assert.That(newTask.Title, Is.EqualTo("NewTaskTitle"));
         });
         
-        provider.Delete(2);
-        var deletedTask = provider.Get(2);
+        provider.Delete(20);
+        var deletedTask = provider.Get(20);
         Assert.IsNull(deletedTask);
     }
     
@@ -72,7 +72,7 @@ public class LocalTaskDbTests
 
         provider.Create( 
             new LocalTask(
-                2,
+                20,
                 "TestTask", 
                 "Random task",
                 new DateTime(2023, 04, 01),
@@ -82,16 +82,16 @@ public class LocalTaskDbTests
                 oldTask
                 )
             );
-        var localTask = provider.Get(2);
+        var localTask = provider.Get(20);
         Assert.Multiple(() =>
         {
-            Assert.That(localTask.Id, Is.EqualTo(2));
+            Assert.That(localTask.Id, Is.EqualTo(20));
             Assert.That(localTask.Parent, Is.Not.Null);
             Assert.That(localTask.Parent?.Id, Is.EqualTo(oldTask.Id));
         });
         
-        provider.Delete(2);
-        var deletedTask = provider.Get(2);
+        provider.Delete(20);
+        var deletedTask = provider.Get(20);
         Assert.IsNull(deletedTask);
     }
 }

@@ -3,7 +3,7 @@ using Deadliner.Models;
 
 namespace Deadliner.Api.Models;
 
-public interface ILocalAction : IObject  // Компоновщик (ITask + ILocalEvent)
+public interface ILocalAction : IObject  // Компоновщик (ILocalTask + ILocalEvent)
 {
     string Title { get; set; }
     string Description { get; set; }

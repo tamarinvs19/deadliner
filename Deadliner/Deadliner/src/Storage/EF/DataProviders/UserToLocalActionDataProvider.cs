@@ -38,7 +38,14 @@ public class UserToLocalActionDataProvider : IStorage<IUserToLocalAction>
     public void Create(IUserToLocalAction item)
     {
         var dbItem = _mapper.WriteItem(item);
-        _dbSet.Add(dbItem);
+        if (_dbSet.Contains(dbItem))
+        {
+            _dbSet.Entry(dbItem).CurrentValues.SetValues(dbItem);
+        }
+        else
+        {
+            _dbSet.Add(dbItem);
+        }
     }
 
     public void Update(IUserToLocalAction item)
