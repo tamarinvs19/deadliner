@@ -34,7 +34,7 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Margin="5" Orientation="Horizontal" MouseDown="Calendar_OnMouseDown">
-                            <TextBlock Width="70" FontSize="15" TextWrapping="Wrap" Text="{Binding DateTime}" VerticalAlignment="Center"/>
+                            <TextBlock Style="{StaticResource PageTextStyle}" Width="90" FontSize="15" TextWrapping="Wrap" Text="{Binding DateTime}" VerticalAlignment="Center"/>
                             <ListBox
                                 ItemsSource="{Binding Path=LocalActions}"
                                 SelectedItem="{Binding Path=SelectedAction}"
@@ -42,7 +42,7 @@
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Vertical" MouseDown="Action_OnMouseDown">
-                                            <TextBlock FontSize="10" Text="{Binding Path=Title}"></TextBlock>
+                                            <TextBlock Style="{StaticResource PageTextStyle}" Margin="0,0,0,0" FontSize="10" Text="{Binding Path=Title}"></TextBlock>
                                         </StackPanel>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
@@ -59,13 +59,19 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Margin="5" Orientation="Horizontal">
-                            <TextBlock FontSize="18" Text="{Binding Path=Title}" VerticalAlignment="Center"/>
+                            <TextBlock  Style="{StaticResource PageTextStyle}" FontSize="18" Text="{Binding Path=Title}" VerticalAlignment="Center"/>
                             <!-- <TextBlock FontSize="12" Text="{Binding Path=Description}" VerticalAlignment="Center"/> -->
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
         </ListBox>
-            <TextBlock Grid.Row="1" Grid.Column="1" FontSize="13" Text="{Binding SelectedCalendar.SelectedAction.Description}"></TextBlock>
+            <StackPanel Orientation="Vertical"   Grid.Row="1" Grid.Column="1">
+                <TextBlock Style="{StaticResource PageTextStyle}" FontSize="15" Text="Title"></TextBlock>
+                <TextBlock Style="{StaticResource PageTextStyle}" Padding="5,0,0,10" FontSize="14" Text="{Binding SelectedCalendar.SelectedAction.Title}"></TextBlock>
+                <TextBlock Style="{StaticResource PageTextStyle}" FontSize="15" Text="Description"></TextBlock>
+                <TextBlock Style="{StaticResource PageTextStyle}"  Padding="5,0,0,10" FontSize="14" Text="{Binding SelectedCalendar.SelectedAction.Description}"></TextBlock>
+            </StackPanel>
+            
         </Grid>
 
     </Grid>

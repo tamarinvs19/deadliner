@@ -6,6 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:DeadlinerUI.ViewModel"
         xmlns:menu="clr-namespace:DeadlinerUI.Utilities"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="MainWindow"
         Height="600"
@@ -46,8 +47,6 @@
                 <StackPanel Height="400"
                             Width="228">
 
-                    <!--// Home //-->
-
                     <menu:Btn Style="{StaticResource BtnStyle}"
                               Command="{Binding HomeCommand}"
                               IsChecked="True">
@@ -64,14 +63,12 @@
 
                     </menu:Btn>
 
-                    <!--// Customer //-->
-
                     <menu:Btn Style="{StaticResource BtnStyle}"
                               Command="{Binding CalendarCommand}">
 
                         <Grid>
 
-                            <Image Source="Images/img_customer.png"
+                            <Image Source="Images/img_product.png"
                                    Style="{StaticResource ImageStyle}" />
 
                             <TextBlock Text="Calendar"
@@ -80,8 +77,6 @@
                         </Grid>
 
                     </menu:Btn>
-
-                    <!--// Products //-->
 
                     <menu:Btn Style="{StaticResource BtnStyle}"
                               Command="{Binding TasksCommand}">
@@ -120,7 +115,8 @@
             <Grid Grid.Column="1">
 
                 <Frame x:Name="Pages"
-                                Content="{Binding CurrentView}" />
+                       Margin="0,0,0,0"
+                       Content="{Binding CurrentView}" />
 
             </Grid>
 

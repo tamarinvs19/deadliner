@@ -31,42 +31,39 @@
           <ListBox.ItemTemplate>
             <DataTemplate>
               <StackPanel Margin="5" Orientation="Horizontal">
-                <TextBlock FontSize="18" Text="{Binding Path=Title}" />
+              <TextBlock Style="{StaticResource PageTextStyle}" FontSize="18" Text="{Binding Path=Title}" />
               </StackPanel>
             </DataTemplate>
           </ListBox.ItemTemplate>
         </ListBox>
         
         <StackPanel Grid.Column="1" Grid.Row="0">
-          <TextBlock Text="Title"></TextBlock>
-          <TextBox Name="ActionTitle" Text="{Binding Path=SelectedAction.Title}"></TextBox> 
-          
-          <TextBlock Text="Description"></TextBlock>
-          <TextBox Name="ActionDescription" Text="{Binding Path=SelectedAction.Description}"
+                <TextBlock Style="{StaticResource PageTextStyle}" Text="Title"></TextBlock>
+                <TextBox Style="{StaticResource PageTextBoxStyle}" Name="ActionTitle" Text="{Binding Path=SelectedAction.Title}"></TextBox>
+
+                <TextBlock Style="{StaticResource PageTextStyle}" Text="Description"></TextBlock>
+                <TextBox Style="{StaticResource PageTextBoxStyle}" Name="ActionDescription" Text="{Binding Path=SelectedAction.Description}"
                    VerticalAlignment="Top"
                    TextWrapping="Wrap"
                    AcceptsReturn="True"
                    HorizontalScrollBarVisibility="Disabled"
                    VerticalScrollBarVisibility="Auto" Height="88"/>
-          
-          <TextBlock Text="Start date"/>
-          <DatePicker Name="ActionStart" SelectedDate="{Binding Path=SelectedAction.CreationDateTime}"></DatePicker>
-          
-          <TextBlock Text="Deadline"/>
-          <DatePicker Name="ActionDeadline" SelectedDate="{Binding Path=SelectedAction.Deadline}"></DatePicker> 
+
+                <TextBlock Style="{StaticResource PageTextStyle}" Text="Start date"/>
+                <DatePicker Style="{StaticResource PageDateStyle}" Name="ActionStart" SelectedDate="{Binding Path=SelectedAction.CreationDateTime}" Background="#FF222222"></DatePicker>
+
+                <TextBlock Style="{StaticResource PageTextStyle}" Text="Deadline"/>
+                <DatePicker Style="{StaticResource PageDateStyle}" Name="ActionDeadline" SelectedDate="{Binding Path=SelectedAction.Deadline}"></DatePicker> 
         
-          <Grid>
+          <Grid Margin="0,20,0,0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="33*"/>
+                <ColumnDefinition Width="33*"/>
+                <ColumnDefinition Width="33*"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Foreground="White" Content="Save" Click="Button_Save" Background="Black"
-                    BorderBrush="Silver" />
-            <Button Grid.Column="1" Foreground="White" Content="Create" Click="Button_Create" Background="Black"
-                    BorderBrush="Silver" />
-            <Button Grid.Column="2" Foreground="White" Content="Delete" Click="Button_Delete" Background="Black"
-                    BorderBrush="Silver" />
+                    <Button Grid.Column="0" Style="{StaticResource MaterialDesignFlatSecondaryDarkBgButton}" Background="#343434" BorderBrush="#232323" Margin="5,0,5,0" Content="Save" Click="Button_Save"/>
+                    <Button Grid.Column="1" Style="{StaticResource MaterialDesignFlatSecondaryDarkBgButton}" Background="#343434" BorderBrush="#232323" Margin="5,0,5,0" Content="Create" Click="Button_Create"/>
+                    <Button Grid.Column="2" Style="{StaticResource MaterialDesignFlatSecondaryDarkBgButton}" Background="#343434" BorderBrush="#232323" Margin="5,0,5,0" Content="Delete" Click="Button_Delete" />
           </Grid>
         </StackPanel>
     

@@ -18,5 +18,57 @@
                 Value="70,0,0,0" />
 
     </Style>
-    
+
+    <Style x:Key="PageTextStyle"
+           TargetType="TextBlock">
+
+        <Setter Property="FontFamily"
+                Value="/Fonts/#Rubik" />
+        <Setter Property="VerticalAlignment"
+                Value="Center" />
+        <Setter Property="HorizontalAlignment"
+                Value="Left" />
+        <Setter Property="Foreground"
+                Value="#DBDBDB" />
+        <Setter Property="FontSize"
+                Value="14" />
+        <Setter Property="Margin"
+                Value="0,10,0,10" />
+
+    </Style>
+
+    <Style x:Key="PageTextBoxStyle"
+           TargetType="TextBox">
+
+        <Setter Property="FontFamily"
+                Value="/Fonts/#Rubik" />
+        <Setter Property="Foreground"
+                Value="#DBDBDB" />
+        <Setter Property="Background"
+                Value="#222" />
+        <Setter Property="Margin"
+                Value="0,10,0,10" />
+        <Setter Property="Padding"
+                Value="0,4,0,4" />
+
+    </Style>
+
+
+    <Style x:Key="PageDateStyle"
+           TargetType="DatePicker">
+
+        <Setter Property="FontFamily"
+                Value="/Fonts/#Rubik" />
+        <Setter Property="DatePickerTextBox.Foreground"
+                Value="#222" />
+        <Setter Property="SelectedDateFormat" 
+                Value="Long" />
+        <Setter Property="Background"
+                Value="Transparent" />
+        <Setter Property="Margin"
+                Value="0,0,10,0" />
+        
+
+    </Style>
+
 </ResourceDictionary>
